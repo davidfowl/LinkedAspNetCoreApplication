@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>link</TrimMode>
+    <_ExtraTrimmerArgs>$(_ExtraTrimmerArgs) --verbose --dump-dependencies</_ExtraTrimmerArgs>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <TrimmerRootDescriptor Include="Linker.xml" />
+  </ItemGroup>
+  
+  <Target Name="EnsureAllAssembliesAreLinked" BeforeTargets="PrepareForILLink">
+    <ItemGroup>
+      <ManagedAssemblyToLink>
+        <TrimMode>link</TrimMode>
+      </ManagedAssemblyToLink>
+      <TrimmerRootAssembly Include="$(TargetName)" />
+    </ItemGroup>
+  </Target>
+</Project>
